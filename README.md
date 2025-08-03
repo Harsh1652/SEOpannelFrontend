@@ -1,70 +1,210 @@
-# Getting Started with Create React App
+# SEO Panel Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React-based frontend application for managing SEO content for Balaji Exports website.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+- **Modern React App**: Built with React 18 and modern hooks
+- **Tailwind CSS**: Beautiful, responsive UI design
+- **Authentication System**: JWT-based login/logout functionality
+- **SEO Management**: CRUD operations for pages and blogs
+- **Rich Text Editor**: Quill editor for blog content
+- **File Upload**: Image upload support for blog posts
+- **Environment Configuration**: Flexible API configuration
 
-### `npm start`
+## 📋 Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node.js (v16 or higher)
+- npm or yarn package manager
+- Backend API running (see backend repository)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🛠️ Installation
 
-### `npm test`
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Harsh1652/SEOpannelFrontend.git
+   cd SEOpannelFrontend
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+3. **Environment Setup**
+   Create a `.env` file in the root directory:
+   ```env
+   # API Configuration
+   REACT_APP_API_URL=http://localhost:5000/api
+   REACT_APP_BACKEND_URL=http://localhost:5000
+   
+   # Environment
+   REACT_APP_NODE_ENV=development
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Start the development server**
+   ```bash
+   npm start
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 📚 Available Scripts
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+# Start development server
+npm start
 
-### `npm run eject`
+# Build for production
+npm run build
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# Run tests
+npm test
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# Eject (not recommended)
+npm run eject
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🏗️ Project Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+frontend/
+├── public/                 # Static files
+├── src/
+│   ├── components/         # Reusable components
+│   │   ├── Layout/        # Layout components
+│   │   ├── BlogForm.jsx   # Blog creation/editing
+│   │   ├── Login.jsx      # Authentication
+│   │   └── SEOForm.jsx    # SEO management
+│   ├── config/
+│   │   └── api.js         # API configuration
+│   ├── context/
+│   │   └── AuthContext.js # Authentication context
+│   ├── pages/             # Page components
+│   │   ├── Dashboard.jsx  # Main dashboard
+│   │   ├── PagesList.jsx  # SEO pages list
+│   │   └── BlogCreate.jsx # Blog management
+│   ├── services/          # API services
+│   │   ├── api.js         # Main API service
+│   │   └── authAPI.js     # Authentication API
+│   ├── App.js             # Main app component
+│   └── index.js           # Entry point
+├── .env                   # Environment variables
+├── package.json           # Dependencies
+└── tailwind.config.js     # Tailwind configuration
+```
 
-## Learn More
+## 🔧 Configuration
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Environment Variables
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `REACT_APP_API_URL` | Base URL for API endpoints | `http://localhost:5000/api` | Yes |
+| `REACT_APP_BACKEND_URL` | Backend URL for file access | `http://localhost:5000` | Yes |
+| `REACT_APP_NODE_ENV` | Environment mode | `development` | No |
 
-### Code Splitting
+### API Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The app uses a centralized API configuration in `src/config/api.js`:
 
-### Analyzing the Bundle Size
+```javascript
+import { getApiUrl, getBackendUrl } from '../config/api';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+// For API calls
+const response = await fetch(getApiUrl('/auth/login'));
 
-### Making a Progressive Web App
+// For file access
+const imageUrl = getBackendUrl('/uploads/image.jpg');
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🎨 UI Components
 
-### Advanced Configuration
+### Layout Components
+- **Header**: Navigation and user info
+- **Sidebar**: Menu navigation
+- **MainLayout**: Overall page structure
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Form Components
+- **BlogForm**: Rich text editor for blog posts
+- **SEOForm**: SEO metadata management
+- **Login**: Authentication form
 
-### Deployment
+### Page Components
+- **Dashboard**: Main overview
+- **PagesList**: SEO pages management
+- **BlogCreate**: Blog creation/editing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 🔐 Authentication
 
-### `npm run build` fails to minify
+The app uses JWT-based authentication:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **Login**: User authentication
+- **Protected Routes**: Role-based access
+- **Token Management**: Automatic token handling
+- **Logout**: Secure session termination
+
+## 📱 Responsive Design
+
+Built with Tailwind CSS for responsive design:
+- Mobile-first approach
+- Responsive breakpoints
+- Modern UI components
+- Accessibility features
+
+## 🚀 Deployment
+
+### Build for Production
+```bash
+npm run build
+```
+
+### Environment Configuration
+For production, update `.env`:
+```env
+REACT_APP_API_URL=https://your-backend-url.com/api
+REACT_APP_BACKEND_URL=https://your-backend-url.com
+REACT_APP_NODE_ENV=production
+```
+
+### Deploy to Platforms
+- **Vercel**: Automatic deployment from GitHub
+- **Netlify**: Drag and drop build folder
+- **GitHub Pages**: Static hosting
+- **AWS S3**: Static website hosting
+
+## 🔍 Development
+
+### Local Development
+```bash
+# Start development server
+npm start
+
+# Open http://localhost:3000
+```
+
+### Code Structure
+- **Components**: Reusable UI components
+- **Pages**: Route-specific components
+- **Services**: API communication
+- **Context**: Global state management
+- **Config**: Environment configuration
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is proprietary to Balaji Exports.
+
+## 📞 Support
+
+For support, contact the development team.
+
+## 🔗 Related Repositories
+
+- **Backend**: [BalajiExportSeoPannelBackend](https://github.com/Harsh1652/BalajiExportSeoPannelBackend)
+- **Main Website**: [Balaji Exports Website](https://github.com/Harsh1652/BalajiExports)
