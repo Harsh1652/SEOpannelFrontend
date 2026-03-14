@@ -22,6 +22,11 @@ api.interceptors.request.use(
       console.warn('No auth token found in localStorage');
     }
     
+    // If FormData, remove Content-Type header to let axios set it with boundary
+    if (config.data instanceof FormData) {
+      delete config.headers['Content-Type'];
+    }
+    
     console.log(`API Request: ${config.method.toUpperCase()} ${config.url}`, config.data || '');
     return config;
   },
@@ -124,17 +129,14 @@ export const createBlog = async (blogData) => {
     formData.append('image', blogData.image);
   }
   
-  // Get auth token
+  // Check for auth token (interceptor will add it to headers)
   const token = localStorage.getItem('authToken');
-  const headers = {
-    'Content-Type': 'multipart/form-data',
-  };
-  
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+  if (!token) {
+    throw new Error('Authentication token not found. Please log in again.');
   }
   
-  const response = await axios.post(`${getApiUrl('/blogs')}`, formData, { headers });
+  // Use api instance - interceptor handles auth token and FormData Content-Type
+  const response = await api.post('/blogs', formData);
   
   return response.data;
 };
@@ -156,17 +158,14 @@ export const updateBlog = async (slug, blogData) => {
     formData.append('image', blogData.image);
   }
   
-  // Get auth token
+  // Check for auth token (interceptor will add it to headers)
   const token = localStorage.getItem('authToken');
-  const headers = {
-    'Content-Type': 'multipart/form-data',
-  };
-  
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+  if (!token) {
+    throw new Error('Authentication token not found. Please log in again.');
   }
   
-  const response = await axios.put(`${getApiUrl(`/blogs/${slug}`)}`, formData, { headers });
+  // Use api instance - interceptor handles auth token and FormData Content-Type
+  const response = await api.put(`/blogs/${slug}`, formData);
   
   return response.data;
 };
